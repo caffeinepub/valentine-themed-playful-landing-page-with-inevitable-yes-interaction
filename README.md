@@ -1,2 +1,3 @@
-# valentine-themed-playful-landing-page-with-inevitable-yes-interaction
-Exported from Caffeine project: Valentine-themed playful landing page with inevitable “Yes” interaction
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

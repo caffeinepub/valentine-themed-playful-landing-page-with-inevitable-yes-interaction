@@ -1,0 +1,299 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 1.5rem;
+        /* Warm Valentine color palette using OKLCH */
+        --background: 0.98 0.01 30;
+        --foreground: 0.15 0.02 30;
+        --card: 0.99 0.01 30;
+        --card-foreground: 0.15 0.02 30;
+        --popover: 0.99 0.01 30;
+        --popover-foreground: 0.15 0.02 30;
+        --primary: 0.65 0.22 15;
+        --primary-foreground: 0.98 0.01 30;
+        --secondary: 0.92 0.05 60;
+        --secondary-foreground: 0.15 0.02 30;
+        --muted: 0.95 0.02 30;
+        --muted-foreground: 0.45 0.02 30;
+        --accent: 0.88 0.15 340;
+        --accent-foreground: 0.15 0.02 30;
+        --destructive: 0.55 0.25 25;
+        --destructive-foreground: 0.98 0.01 30;
+        --border: 0.90 0.02 30;
+        --input: 0.90 0.02 30;
+        --ring: 0.65 0.22 15;
+        --chart-1: 0.65 0.22 15;
+        --chart-2: 0.70 0.18 340;
+        --chart-3: 0.75 0.12 60;
+        --chart-4: 0.80 0.08 30;
+        --chart-5: 0.85 0.05 350;
+    }
+
+    .dark {
+        --background: 0.12 0.02 30;
+        --foreground: 0.95 0.01 30;
+        --card: 0.15 0.02 30;
+        --card-foreground: 0.95 0.01 30;
+        --popover: 0.15 0.02 30;
+        --popover-foreground: 0.95 0.01 30;
+        --primary: 0.70 0.22 15;
+        --primary-foreground: 0.12 0.02 30;
+        --secondary: 0.25 0.05 60;
+        --secondary-foreground: 0.95 0.01 30;
+        --muted: 0.20 0.02 30;
+        --muted-foreground: 0.65 0.02 30;
+        --accent: 0.35 0.15 340;
+        --accent-foreground: 0.95 0.01 30;
+        --destructive: 0.50 0.25 25;
+        --destructive-foreground: 0.95 0.01 30;
+        --border: 0.25 0.02 30;
+        --input: 0.25 0.02 30;
+        --ring: 0.70 0.22 15;
+        --chart-1: 0.70 0.22 15;
+        --chart-2: 0.65 0.18 340;
+        --chart-3: 0.60 0.12 60;
+        --chart-4: 0.55 0.08 30;
+        --chart-5: 0.50 0.05 350;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+}
+
+/* Valentine-themed gradients */
+.valentine-gradient {
+    background: linear-gradient(
+        135deg,
+        oklch(0.98 0.02 15 / 0.8) 0%,
+        oklch(0.95 0.05 340 / 0.6) 50%,
+        oklch(0.92 0.08 60 / 0.8) 100%
+    );
+}
+
+.valentine-gradient-dark {
+    background: linear-gradient(
+        135deg,
+        oklch(0.15 0.02 15 / 0.9) 0%,
+        oklch(0.12 0.05 340 / 0.7) 50%,
+        oklch(0.10 0.08 60 / 0.9) 100%
+    );
+}
+
+/* Enhanced animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(-5deg);
+    }
+    75% {
+        transform: translateY(-15px) rotate(3deg);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(180deg);
+    }
+}
+
+@keyframes sparkle-rotate {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(0.9) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1) rotate(360deg);
+    }
+}
+
+@keyframes sparkle-pulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+}
+
+@keyframes pulse-heart {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes bounce-subtle {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes pulse-gentle {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px oklch(0.65 0.22 15 / 0.3);
+    }
+    50% {
+        box-shadow: 0 0 30px oklch(0.65 0.22 15 / 0.5), 0 0 40px oklch(0.65 0.22 15 / 0.3);
+    }
+}
+
+@keyframes card-entrance {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.heart-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.sparkle {
+    animation: sparkle 3s ease-in-out infinite;
+}
+
+.sparkle-rotate {
+    animation: sparkle-rotate 4s ease-in-out infinite;
+}
+
+.sparkle-pulse {
+    animation: sparkle-pulse 2s ease-in-out infinite;
+}
+
+.pulse-heart {
+    animation: pulse-heart 1.5s ease-in-out infinite;
+}
+
+.animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+.animate-pulse-gentle {
+    animation: pulse-gentle 3s ease-in-out infinite;
+}
+
+.button-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.epilogue-card {
+    animation: card-entrance 0.6s ease-out;
+}
+
+.question-card {
+    animation: card-entrance 0.6s ease-out 0.1s backwards;
+}
+
+.success-card {
+    animation: card-entrance 0.6s ease-out;
+}
+
+/* Love note styling for success card */
+.love-note {
+    background: linear-gradient(
+        135deg,
+        oklch(0.99 0.01 30 / 0.98) 0%,
+        oklch(0.98 0.02 340 / 0.95) 100%
+    );
+}
+
+.dark .love-note {
+    background: linear-gradient(
+        135deg,
+        oklch(0.15 0.02 30 / 0.98) 0%,
+        oklch(0.14 0.03 340 / 0.95) 100%
+    );
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .heart-float,
+    .sparkle,
+    .sparkle-rotate,
+    .sparkle-pulse,
+    .pulse-heart,
+    .animate-bounce-subtle,
+    .animate-pulse-gentle,
+    .button-glow {
+        animation: none !important;
+    }
+
+    .epilogue-card,
+    .question-card,
+    .success-card {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

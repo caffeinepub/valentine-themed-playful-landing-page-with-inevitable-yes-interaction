@@ -1,0 +1,73 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-08T18:15:38.774Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 3,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-14",
+        "summary": "Update the 'Yes' success-state content (the card shown after the celebration overlay) to use the exact user-provided copy, including a new header and two body paragraphs, and enhance the typography/layout to feel like a romantic love note while keeping all user-facing text in English.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/valentine/ValentineLanding.tsx",
+          "frontend/src/index.css"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/valentine/ValentineLanding.tsx",
+          "frontend/src/index.css"
+        ]
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Ensure the 'No' path is a persistent loop: the user can keep attempting to choose \"No\" indefinitely and is repeatedly presented with the option again (\"No\" is never a terminal outcome). Each attempt should show an escalating sequence of teasing prompts so the user feels 'bombarded' playfully, while still keeping the app responsive and not broken.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/valentine/ValentineLanding.tsx",
+          "frontend/src/components/valentine/InevitableNoButton.tsx",
+          "frontend/src/components/valentine/noButtonBehaviors.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/valentine/ValentineLanding.tsx",
+          "frontend/src/components/valentine/InevitableNoButton.tsx",
+          "frontend/src/components/valentine/noButtonBehaviors.ts"
+        ]
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Add more animation and cute emotes/design accents throughout the question and success views (e.g., additional heart/sparkle accents, micro-interactions on buttons and headings), while respecting reduced-motion preferences by providing non-motion alternatives (subtle style changes, static accents) when motion is reduced.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/valentine/ValentineLanding.tsx",
+          "frontend/src/components/valentine/CelebrationOverlay.tsx",
+          "frontend/src/index.css"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/valentine/ValentineLanding.tsx",
+          "frontend/src/components/valentine/CelebrationOverlay.tsx",
+          "frontend/src/index.css"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/components/valentine/CelebrationOverlay.tsx",
+    "frontend/src/components/valentine/InevitableNoButton.tsx",
+    "frontend/src/components/valentine/ValentineLanding.tsx",
+    "frontend/src/components/valentine/noButtonBehaviors.ts",
+    "frontend/src/index.css",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

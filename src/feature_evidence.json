@@ -1,0 +1,64 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-yes-success-state-content-the-card-shown-after-the-celebration-overlay-to-use-the-exact-user-provided-copy-including-a-new-header-and-two-body-paragraphs-and-enhance-the-typography-layout-to-feel-like-a-romantic-love-note-while-keeping-all-user-facing-text-in-english",
+      "featureTitle": "Update the 'Yes' success-state content (the card shown after the celebration overlay) to use the exact user-provided copy, including a new header and two body paragraphs, and enhance the typography/layout to feel like a romantic love note while keeping all user-facing text in English.",
+      "files": [
+        "frontend/src/components/valentine/ValentineLanding.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-no-path-is-a-persistent-loop-the-user-can-keep-attempting-to-choose-no-indefinitely-and-is-repeatedly-presented-with-the-option-again-no-is-never-a-terminal-outcome-each-attempt-should-show-an-escalating-sequence-of-teasing-prompts-so-the-user-feels-bombarded-playfully-while-still-keeping-the-app-responsive-and-not-broken",
+      "featureTitle": "Ensure the 'No' path is a persistent loop: the user can keep attempting to choose \"No\" indefinitely and is repeatedly presented with the option again (\"No\" is never a terminal outcome). Each attempt should show an escalating sequence of teasing prompts so the user feels 'bombarded' playfully, while still keeping the app responsive and not broken.",
+      "files": [
+        "frontend/src/components/valentine/InevitableNoButton.tsx",
+        "frontend/src/components/valentine/ValentineLanding.tsx",
+        "frontend/src/components/valentine/noButtonBehaviors.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-more-animation-and-cute-emotes-design-accents-throughout-the-question-and-success-views-e-g-additional-heart-sparkle-accents-micro-interactions-on-buttons-and-headings-while-respecting-reduced-motion-preferences-by-providing-non-motion-alternatives-subtle-style-changes-static-accents-when-motion-is-reduced",
+      "featureTitle": "Add more animation and cute emotes/design accents throughout the question and success views (e.g., additional heart/sparkle accents, micro-interactions on buttons and headings), while respecting reduced-motion preferences by providing non-motion alternatives (subtle style changes, static accents) when motion is reduced.",
+      "files": [
+        "frontend/src/components/valentine/CelebrationOverlay.tsx",
+        "frontend/src/components/valentine/ValentineLanding.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-16"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

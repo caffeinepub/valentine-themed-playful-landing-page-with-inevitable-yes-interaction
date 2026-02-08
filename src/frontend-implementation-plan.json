@@ -1,0 +1,82 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Refresh success copy, endless 'No' loop teasing, and extra cute animations (reduced-motion friendly)",
+  "requirements": [
+    {
+      "id": "REQ-14",
+      "summary": "Replace the post-celebration success card copy with the exact user-provided header + two paragraphs, and style it like a romantic love note with clear paragraph spacing (English text only).",
+      "acceptanceCriteria": [
+        "After selecting \"Yes!\", the success card headline text is exactly: \"My cute little baby\".",
+        "The success card displays body paragraph 1 exactly: \"You mean so much to me and  you are really adorable!\".",
+        "The success card displays body paragraph 2 exactly: \"I can't wait to make every moment for us special and even better and I really am looking forward for you and me as life long partners. Every moment with you is gonna be like the treasure , and I'm grateful that you really look forward too! Cheers to our love~ \".",
+        "All newly displayed text remains in English.",
+        "Line breaks/spacing make the two paragraphs clearly distinct and readable on mobile and desktop."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/valentine/ValentineLanding.tsx",
+          "operation": "modify",
+          "description": "Update the success-state card (shown after the celebration overlay) to use the exact provided headline and two body paragraphs, and adjust the success content layout/typography to read like a romantic note (clear paragraph separation, readable line length on mobile/desktop)."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add/adjust a small set of global Valentine-specific utility classes to support a love-note typographic feel on the success card (e.g., subtle paper-like treatment, refined spacing/leading) while keeping readability and English-only text; ensure reduced-motion overrides still apply where relevant."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Make the 'No' path an endless, responsive loop with escalating teasing prompts and behaviors for unlimited attempts; 'No' is never a terminal outcome and the Yes/No choice always remains available until 'Yes!' is selected.",
+      "acceptanceCriteria": [
+        "There is no UI state in which choosing/attempting \"No\" ends the flow or removes the Yes/No choice permanently.",
+        "The feedback/teasing message area continues to update for attempts beyond 5 (including very high attempt counts) without crashing, freezing, or showing empty text.",
+        "The \"No\" option remains visible/available after every failed/evaded attempt, and the user can continue interacting until they select \"Yes!\"."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/valentine/ValentineLanding.tsx",
+          "operation": "modify",
+          "description": "Ensure the question view always retains both choices after every 'No' attempt; expand and harden the teasing prompt selection so it remains non-empty and varied for very high attempt counts (e.g., cycling strategy that cannot return blank beyond the initial state), keeping the UI responsive."
+        },
+        {
+          "path": "frontend/src/components/valentine/InevitableNoButton.tsx",
+          "operation": "modify",
+          "description": "Make the 'No' button labeling/teasing scale indefinitely (avoid permanently clamping to the final label by cycling or generating labels after the list), and ensure interactions continue to register attempts safely at high counts without breaking responsiveness."
+        },
+        {
+          "path": "frontend/src/components/valentine/noButtonBehaviors.ts",
+          "operation": "modify",
+          "description": "Enhance the escalating evasion behavior set to stay interesting beyond the currently defined max attempt level (e.g., rotate through multiple high-tier behaviors), and keep reduced-motion variants as non-motion alternatives (opacity/contrast/scale changes rather than large movement) to prevent the loop from feeling broken for reduced-motion users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Add additional cute animations, micro-interactions, and emoji/icon accents across the question and success views, while respecting prefers-reduced-motion with minimized-motion alternatives that remain expressive and readable.",
+      "acceptanceCriteria": [
+        "In normal motion mode, the question and/or success view includes additional lively but non-distracting animations beyond the current baseline (e.g., enhanced sparkle/heart accents or micro-interactions).",
+        "In reduced-motion mode, the experience remains visually cute and expressive without relying on fast/large motion; animations are minimized/removed per existing reduced-motion behavior.",
+        "Any added emotes are represented as emojis or existing iconography (no broken/missing assets), and the UI remains accessible and readable."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/valentine/ValentineLanding.tsx",
+          "operation": "modify",
+          "description": "Add extra heart/sparkle accents and small micro-interactions to the question and success sections (headings/buttons/feedback area) using existing iconography/emojis; ensure all motion additions are conditionally enabled when prefers-reduced-motion is not set, and that reduced-motion mode uses static/subtle styling alternatives."
+        },
+        {
+          "path": "frontend/src/components/valentine/CelebrationOverlay.tsx",
+          "operation": "modify",
+          "description": "Enhance the celebratory feel with additional cute visual variety in normal motion mode (without becoming distracting), while keeping the existing reduced-motion path clearly non-motion (static/fade) and performant."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Introduce/adjust a few additional Valentine-friendly keyframes/utility classes for subtle accents (e.g., gentle shimmer/sparkle emphasis, hover/focus micro-interactions) and ensure the existing prefers-reduced-motion media query provides non-motion alternatives (static accents/subtle color/outline changes) for any newly added animated classes."
+        }
+      ]
+    }
+  ]
+}

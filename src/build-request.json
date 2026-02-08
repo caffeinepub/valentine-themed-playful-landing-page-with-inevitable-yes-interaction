@@ -1,0 +1,80 @@
+{
+  "kind": "build_request",
+  "title": "Update success-state copy and ensure persistent 'No' loop with more teasing animations/emotes",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-14",
+      "text": "Update the 'Yes' success-state content (the card shown after the celebration overlay) to use the exact user-provided copy, including a new header and two body paragraphs, and enhance the typography/layout to feel like a romantic love note while keeping all user-facing text in English.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "I'd like to edit it a little \"My cute little baby\" as header and then in the body say \"You mean so much to me and  you are really adorable!\" and in the second body say \"I can't wait to make every moment for us special and even better and I really am looking forward for you and me as life long partners. Every moment with you is gonna be like the treasure , and I'm grateful that you really look forward too! Cheers to our love~ \""
+        ]
+      },
+      "acceptanceCriteria": [
+        "After selecting \"Yes!\", the success card headline text is exactly: \"My cute little baby\".",
+        "The success card displays body paragraph 1 exactly: \"You mean so much to me and  you are really adorable!\".",
+        "The success card displays body paragraph 2 exactly: \"I can't wait to make every moment for us special and even better and I really am looking forward for you and me as life long partners. Every moment with you is gonna be like the treasure , and I'm grateful that you really look forward too! Cheers to our love~ \".",
+        "All newly displayed text remains in English.",
+        "Line breaks/spacing make the two paragraphs clearly distinct and readable on mobile and desktop."
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Ensure the 'No' path is a persistent loop: the user can keep attempting to choose \"No\" indefinitely and is repeatedly presented with the option again (\"No\" is never a terminal outcome). Each attempt should show an escalating sequence of teasing prompts so the user feels 'bombarded' playfully, while still keeping the app responsive and not broken.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "add the loop where if the user gets to keep choosing \"no\" until they say yes",
+          "remember to add the loop where the user gets bombarded with different teasing's if they say \"no\". Keep giving them the no option if they choose no once please remember!"
+        ]
+      },
+      "acceptanceCriteria": [
+        "There is no UI state in which choosing/attempting \"No\" ends the flow or removes the Yes/No choice permanently.",
+        "The feedback/teasing message area continues to update for attempts beyond 5 (including very high attempt counts) without crashing, freezing, or showing empty text.",
+        "The \"No\" option remains visible/available after every failed/evaded attempt, and the user can continue interacting until they select \"Yes!\"."
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Add more animation and cute emotes/design accents throughout the question and success views (e.g., additional heart/sparkle accents, micro-interactions on buttons and headings), while respecting reduced-motion preferences by providing non-motion alternatives (subtle style changes, static accents) when motion is reduced.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "add necessary emotes and designs required",
+          "Add more animation and emotes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "In normal motion mode, the question and/or success view includes additional lively but non-distracting animations beyond the current baseline (e.g., enhanced sparkle/heart accents or micro-interactions).",
+        "In reduced-motion mode, the experience remains visually cute and expressive without relying on fast/large motion; animations are minimized/removed per existing reduced-motion behavior.",
+        "Any added emotes are represented as emojis or existing iconography (no broken/missing assets), and the UI remains accessible and readable."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use English for all user-facing text.",
+    "Do not edit files under frontend/src/components/ui (read-only); compose existing UI components instead.",
+    "Respect prefers-reduced-motion behavior: provide non-motion alternatives when reduced motion is enabled.",
+    "Backend must remain single-actor Motoko; no backend changes are required for this request."
+  ],
+  "nonGoals": [
+    "Adding new backend persistence, profiles, or databases for tracking attempts.",
+    "Adding third-party integrations (analytics, chat, auth providers beyond Internet Identity).",
+    "Introducing new routes/pages beyond the existing single-page flow unless required to satisfy the above requirements."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
