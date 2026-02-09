@@ -9,7 +9,7 @@ import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
 type AppState = 'epilogue' | 'question' | 'celebrating';
 
-// Extended feedback messages for all attempt levels - more persuasive and interesting
+// Expanded feedback messages with high-entropy variety
 const FEEDBACK_MESSAGES = [
   '', // 0 attempts
   "Wait, don't you want to know what happens if you say yes? 💕",
@@ -33,8 +33,8 @@ const FEEDBACK_MESSAGES = [
   "At this point, saying yes is inevitable... embrace it! 💘",
 ];
 
-// Cycling messages for attempts beyond the initial set
-const EXTRA_TEASING_MESSAGES = [
+// Extended cycling messages for unlimited attempts with more variety
+const EXTRA_TEASING_POOL = [
   "Akriti, you're incredibly persistent... I admire that! But yes is still the answer! 💕",
   "The button is exhausted, I'm hopeful, and you're amazing! Say yes? 😊",
   "Plot twist: This whole time, you actually wanted to say yes! 💝",
@@ -50,16 +50,57 @@ const EXTRA_TEASING_MESSAGES = [
   "The button is playing hard to get, but I know you're not! Right? 😉",
   "Fun fact: The word 'No' doesn't exist in the language of love! 💕",
   "Your persistence is legendary! But so is my hope that you'll say yes! ⭐",
+  "Think of all the cute dates we could go on if you just say yes! 🎡",
+  "The button is getting dizzy from all this running around! 🌀",
+  "I'm starting to think you enjoy watching the button escape! 😏",
+  "Confession: I've been practicing my happy dance for when you say yes! 💃",
+  "The button just asked me if it can retire... please say yes! 🏖️",
+  "You're making history here - most creative 'No' attempts ever! But... yes? 🏆",
+  "I bet you're smiling right now... that's a good sign! Say yes! 😁",
+  "The button has developed trust issues... help me help it! 💔➡️💖",
+  "If persistence was a superpower, you'd be a superhero! Now use it to say yes! 🦸",
+  "The button is writing its memoirs: 'The Day I Ran From Love' 📖",
+  "You've unlocked achievement: 'Master of Evasion'! Next: 'Master of Yes'! 🎮",
+  "I'm not saying the button is scared... but it's definitely scared! 😱",
+  "Think again! (See what I did there? 😉) But seriously... yes?",
+  "The button's GPS shows it's been to 47 different locations! 🗺️",
+  "You're so close to making both of us incredibly happy! Just one yes! 🎯",
 ];
+
+// Template-based message generation for even higher entropy
+function generateDynamicMessage(attempts: number): string {
+  const templates = [
+    `Attempt #${attempts}: The button is getting more creative with its escapes! 🎪`,
+    `${attempts} tries and counting! Your determination is impressive! 💪`,
+    `The button has now traveled ${attempts * 10} pixels trying to escape! 📏`,
+    `Fun stat: You've spent ${attempts * 2} seconds not saying yes! ⏱️`,
+    `The button's fitness tracker shows ${attempts} evasive maneuvers! 🏃‍♂️`,
+    `After ${attempts} attempts, the button is considering a career change! 💼`,
+    `${attempts} times you've made me smile watching this! Now say yes? 😊`,
+    `The button has filed ${attempts} complaints about working conditions! 📋`,
+  ];
+  return templates[attempts % templates.length];
+}
 
 function getFeedbackMessage(attempts: number): string {
   if (attempts === 0) return '';
   if (attempts < FEEDBACK_MESSAGES.length) {
     return FEEDBACK_MESSAGES[attempts];
   }
-  // For attempts beyond the array, cycle through extra persuasive messages
-  const extraIndex = (attempts - FEEDBACK_MESSAGES.length) % EXTRA_TEASING_MESSAGES.length;
-  return EXTRA_TEASING_MESSAGES[extraIndex];
+  
+  // For attempts 20-50, use the extended pool
+  if (attempts < 50) {
+    const extraIndex = (attempts - FEEDBACK_MESSAGES.length) % EXTRA_TEASING_POOL.length;
+    return EXTRA_TEASING_POOL[extraIndex];
+  }
+  
+  // For 50+, mix dynamic templates with pool messages
+  if (attempts % 3 === 0) {
+    return generateDynamicMessage(attempts);
+  } else {
+    const extraIndex = (attempts - FEEDBACK_MESSAGES.length) % EXTRA_TEASING_POOL.length;
+    return EXTRA_TEASING_POOL[extraIndex];
+  }
 }
 
 export default function ValentineLanding() {
@@ -112,6 +153,19 @@ export default function ValentineLanding() {
                 <Sparkles className={`h-16 w-16 ${prefersReducedMotion ? '' : 'sparkle'}`} />
               </div>
 
+              {/* Decorative stickers - new micro-animation */}
+              <img
+                src="/assets/generated/valentine-stickers-set.dim_1024x1024.png"
+                alt=""
+                className={`pointer-events-none absolute -left-8 top-1/4 h-32 w-32 opacity-20 dark:opacity-10 ${prefersReducedMotion ? '' : 'sticker-bob'}`}
+              />
+              <img
+                src="/assets/generated/valentine-stickers-set.dim_1024x1024.png"
+                alt=""
+                className={`pointer-events-none absolute -right-8 bottom-1/4 h-28 w-28 opacity-20 dark:opacity-10 ${prefersReducedMotion ? '' : 'sticker-bob'}`}
+                style={{ animationDelay: '1.5s' }}
+              />
+
               {/* Epilogue Content */}
               <div className="relative z-10 text-center">
                 <div className="mb-8 flex justify-center">
@@ -123,7 +177,7 @@ export default function ValentineLanding() {
                   </div>
                 </div>
 
-                <h1 className="mb-6 font-display text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
+                <h1 className={`mb-6 font-display text-4xl font-bold text-foreground md:text-5xl lg:text-6xl ${prefersReducedMotion ? '' : 'heading-shimmer'}`}>
                   Do you wanna know a secret? ✨
                 </h1>
                 <p className="mb-8 text-xl text-muted-foreground md:text-2xl">
@@ -160,6 +214,26 @@ export default function ValentineLanding() {
                     <Star className={`h-10 w-10 ${prefersReducedMotion ? '' : 'sparkle-rotate'}`} style={{ animationDelay: '0.7s' }} />
                   </div>
 
+                  {/* Decorative garland - new image */}
+                  <img
+                    src="/assets/generated/valentine-heart-garland.dim_1600x400.png"
+                    alt=""
+                    className={`pointer-events-none absolute left-0 right-0 top-0 h-16 w-full object-cover opacity-15 dark:opacity-8 ${prefersReducedMotion ? '' : 'garland-sway'}`}
+                  />
+
+                  {/* Decorative stickers */}
+                  <img
+                    src="/assets/generated/valentine-stickers-set.dim_1024x1024.png"
+                    alt=""
+                    className={`pointer-events-none absolute -left-6 top-1/3 h-24 w-24 opacity-20 dark:opacity-10 ${prefersReducedMotion ? '' : 'sticker-bob'}`}
+                  />
+                  <img
+                    src="/assets/generated/valentine-stickers-set.dim_1024x1024.png"
+                    alt=""
+                    className={`pointer-events-none absolute -right-6 bottom-1/3 h-20 w-20 opacity-20 dark:opacity-10 ${prefersReducedMotion ? '' : 'sticker-bob'}`}
+                    style={{ animationDelay: '1.2s' }}
+                  />
+
                   {/* Hero Illustration */}
                   <div className="mb-8 flex justify-center">
                     <div className="relative">
@@ -174,7 +248,7 @@ export default function ValentineLanding() {
                       <div className={`absolute -left-2 bottom-4 text-accent ${prefersReducedMotion ? '' : 'sparkle-pulse'}`} style={{ animationDelay: '0.5s' }}>
                         <Heart className="h-5 w-5 fill-current" />
                       </div>
-                      <div className={`absolute right-8 bottom-2 text-secondary ${prefersReducedMotion ? '' : 'sparkle-pulse'}`} style={{ animationDelay: '0.3s' }}>
+                      <div className={`absolute right-8 bottom-2 text-secondary ${prefersReducedMotion ? '' : 'sparkle-pulse twinkle'}`} style={{ animationDelay: '0.3s' }}>
                         <Sparkles className="h-4 w-4" />
                       </div>
                     </div>
@@ -219,6 +293,13 @@ export default function ValentineLanding() {
         ) : (
           <div className={`w-full max-w-2xl ${prefersReducedMotion ? 'animate-fade-in' : 'animate-scale-in'}`}>
             <Card className="relative overflow-hidden border-2 border-primary/30 bg-card/95 p-8 text-center shadow-valentine-lg backdrop-blur-sm md:p-12 success-card love-note">
+              {/* Decorative love note paper background */}
+              <img
+                src="/assets/generated/valentine-love-note-paper.dim_1600x1200.png"
+                alt=""
+                className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-10 dark:opacity-5"
+              />
+
               {/* Decorative elements with enhanced animations */}
               <div className="absolute -right-8 -top-8 text-primary/5">
                 <Heart className="h-40 w-40 fill-current" />
@@ -227,11 +308,31 @@ export default function ValentineLanding() {
                 <Heart className="h-36 w-36 fill-current" />
               </div>
               <div className="absolute right-12 top-12 text-secondary/10">
-                <Sparkles className={`h-12 w-12 ${prefersReducedMotion ? '' : 'sparkle'}`} />
+                <Sparkles className={`h-12 w-12 ${prefersReducedMotion ? '' : 'sparkle twinkle'}`} />
               </div>
               <div className="absolute left-12 bottom-12 text-accent/10">
                 <Star className={`h-10 w-10 ${prefersReducedMotion ? '' : 'sparkle-rotate'}`} />
               </div>
+
+              {/* Decorative stickers */}
+              <img
+                src="/assets/generated/valentine-stickers-set.dim_1024x1024.png"
+                alt=""
+                className={`pointer-events-none absolute left-4 top-4 h-20 w-20 opacity-25 dark:opacity-15 ${prefersReducedMotion ? '' : 'sticker-bob'}`}
+              />
+              <img
+                src="/assets/generated/valentine-stickers-set.dim_1024x1024.png"
+                alt=""
+                className={`pointer-events-none absolute right-4 bottom-4 h-20 w-20 opacity-25 dark:opacity-15 ${prefersReducedMotion ? '' : 'sticker-bob'}`}
+                style={{ animationDelay: '0.8s' }}
+              />
+
+              {/* Give-in flourish badge */}
+              {noAttempts > 10 && (
+                <div className={`absolute left-1/2 top-4 -translate-x-1/2 rounded-full bg-primary/20 px-4 py-2 text-sm font-semibold text-primary backdrop-blur-sm ${prefersReducedMotion ? 'animate-fade-in' : 'final-flourish'}`}>
+                  {noAttempts > 30 ? '🏆 Legendary Persistence!' : noAttempts > 20 ? '⭐ Epic Journey!' : '💫 Worth the wait!'}
+                </div>
+              )}
 
               {/* Success Content */}
               <div className="relative z-10">
@@ -244,7 +345,7 @@ export default function ValentineLanding() {
                     <div className={`absolute -left-4 -bottom-4 text-secondary ${prefersReducedMotion ? '' : 'sparkle'}`} style={{ animationDelay: '0.3s' }}>
                       <Sparkles className="h-8 w-8" />
                     </div>
-                    <div className={`absolute right-0 bottom-0 text-primary ${prefersReducedMotion ? '' : 'sparkle-pulse'}`} style={{ animationDelay: '0.6s' }}>
+                    <div className={`absolute right-0 bottom-0 text-primary ${prefersReducedMotion ? '' : 'sparkle-pulse twinkle'}`} style={{ animationDelay: '0.6s' }}>
                       <Star className="h-6 w-6" />
                     </div>
                   </div>
@@ -281,8 +382,8 @@ export default function ValentineLanding() {
         )}
       </div>
 
-      {/* Celebration Overlay */}
-      {state === 'celebrating' && <CelebrationOverlay />}
+      {/* Celebration Overlay with intensity */}
+      {state === 'celebrating' && <CelebrationOverlay intensity={noAttempts} />}
 
       {/* Footer */}
       <footer className="fixed bottom-0 left-0 right-0 z-20 bg-background/80 py-4 text-center text-sm text-muted-foreground backdrop-blur-sm">

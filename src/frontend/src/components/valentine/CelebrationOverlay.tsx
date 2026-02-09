@@ -2,9 +2,13 @@ import { useEffect, useRef } from 'react';
 import { useCelebration } from './useCelebration';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
-export default function CelebrationOverlay() {
+interface CelebrationOverlayProps {
+  intensity?: number;
+}
+
+export default function CelebrationOverlay({ intensity = 0 }: CelebrationOverlayProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { isActive, isReducedMotion } = useCelebration();
+  const { isActive, isReducedMotion } = useCelebration(intensity);
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
@@ -22,8 +26,12 @@ export default function CelebrationOverlay() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
+    // Calculate intensity multiplier (1x to 2.5x based on attempts)
+    const intensityMultiplier = Math.min(1 + (intensity / 30), 2.5);
+
     if (prefersReducedMotion || isReducedMotion) {
       // Reduced motion: Show static hearts that fade in with sparkles
+      // Scale density with intensity
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       const drawStaticHeart = (x: number, y: number, size: number, opacity: number, hue: number) => {
@@ -44,7 +52,6 @@ export default function CelebrationOverlay() {
         ctx.translate(x, y);
         ctx.globalAlpha = opacity;
         ctx.fillStyle = `oklch(0.85 0.15 60)`;
-        // Draw a simple star/sparkle
         ctx.beginPath();
         for (let i = 0; i < 5; i++) {
           const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
@@ -59,27 +66,41 @@ export default function CelebrationOverlay() {
         ctx.restore();
       };
 
-      // Draw a few static hearts and sparkles in a pattern
+      // Draw static hearts and sparkles with intensity-based density
       let opacity = 0;
+      const targetOpacity = Math.min(0.7 * intensityMultiplier, 0.9);
       const fadeIn = setInterval(() => {
         opacity += 0.05;
-        if (opacity > 0.7) {
+        if (opacity > targetOpacity) {
           clearInterval(fadeIn);
           return;
         }
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Draw hearts in a nice pattern
+        // Base pattern
         drawStaticHeart(canvas.width / 2, canvas.height / 2 - 100, 40, opacity, 350);
         drawStaticHeart(canvas.width / 2 - 150, canvas.height / 2, 30, opacity, 340);
         drawStaticHeart(canvas.width / 2 + 150, canvas.height / 2, 30, opacity, 360);
         drawStaticHeart(canvas.width / 2 - 80, canvas.height / 2 + 120, 25, opacity, 345);
         drawStaticHeart(canvas.width / 2 + 80, canvas.height / 2 + 120, 25, opacity, 355);
         
-        // Add sparkles
+        // Add extra hearts for high intensity
+        if (intensityMultiplier > 1.5) {
+          drawStaticHeart(canvas.width / 2 - 200, canvas.height / 2 - 80, 28, opacity * 0.8, 335);
+          drawStaticHeart(canvas.width / 2 + 200, canvas.height / 2 - 80, 28, opacity * 0.8, 365);
+          drawStaticHeart(canvas.width / 2, canvas.height / 2 + 180, 32, opacity * 0.9, 355);
+        }
+        
+        // Sparkles
         drawStaticSparkle(canvas.width / 2 - 100, canvas.height / 2 - 150, 8, opacity * 0.8);
         drawStaticSparkle(canvas.width / 2 + 100, canvas.height / 2 - 150, 8, opacity * 0.8);
         drawStaticSparkle(canvas.width / 2, canvas.height / 2 + 180, 10, opacity * 0.8);
+        
+        // Extra sparkles for high intensity
+        if (intensityMultiplier > 1.3) {
+          drawStaticSparkle(canvas.width / 2 - 180, canvas.height / 2, 7, opacity * 0.7);
+          drawStaticSparkle(canvas.width / 2 + 180, canvas.height / 2, 7, opacity * 0.7);
+        }
       }, 50);
 
       return () => {
@@ -88,7 +109,7 @@ export default function CelebrationOverlay() {
       };
     }
 
-    // Enhanced heart particle class with more variety
+    // Enhanced heart particle class with intensity scaling
     class Heart {
       x: number;
       y: number;
@@ -105,13 +126,13 @@ export default function CelebrationOverlay() {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = canvas.height + 20;
-        this.size = Math.random() * 30 + 15; // Larger hearts
-        this.speedY = -Math.random() * 4 - 2.5; // Faster rising
+        this.size = Math.random() * 30 + 15;
+        this.speedY = -Math.random() * 4 - 2.5;
         this.speedX = (Math.random() - 0.5) * 3;
         this.opacity = 1;
         this.rotation = Math.random() * Math.PI * 2;
         this.rotationSpeed = (Math.random() - 0.5) * 0.2;
-        this.hue = Math.random() * 40 + 330; // Pink to red range
+        this.hue = Math.random() * 40 + 330;
         this.wobble = 0;
         this.wobbleSpeed = Math.random() * 0.06 + 0.02;
       }
@@ -122,7 +143,6 @@ export default function CelebrationOverlay() {
         this.rotation += this.rotationSpeed;
         this.wobble += this.wobbleSpeed;
         
-        // Start fading earlier for smoother effect
         if (this.y < canvas.height * 0.4) {
           this.opacity -= 0.01;
         }
@@ -136,7 +156,6 @@ export default function CelebrationOverlay() {
         ctx.rotate(this.rotation);
         ctx.globalAlpha = this.opacity;
 
-        // Draw heart shape with varied colors
         const size = this.size;
         ctx.fillStyle = `oklch(0.65 0.22 ${this.hue})`;
         ctx.beginPath();
@@ -145,7 +164,6 @@ export default function CelebrationOverlay() {
         ctx.bezierCurveTo(size, size * 0.1, size * 0.5, -size * 0.3, 0, size * 0.3);
         ctx.fill();
 
-        // Add a subtle glow
         ctx.shadowBlur = 15;
         ctx.shadowColor = `oklch(0.65 0.22 ${this.hue})`;
 
@@ -193,7 +211,6 @@ export default function CelebrationOverlay() {
         ctx.rotate(this.rotation);
         ctx.globalAlpha = this.opacity;
 
-        // Draw a star/sparkle
         ctx.fillStyle = `oklch(0.85 0.15 60)`;
         ctx.beginPath();
         for (let i = 0; i < 5; i++) {
@@ -215,16 +232,22 @@ export default function CelebrationOverlay() {
     const sparkles: Sparkle[] = [];
     let animationFrameId: number;
 
+    // Scale particle limits with intensity
+    const maxHearts = Math.floor(90 * intensityMultiplier);
+    const maxSparkles = Math.floor(40 * intensityMultiplier);
+    const heartSpawnRate = Math.min(0.45 * intensityMultiplier, 0.8);
+    const sparkleSpawnRate = Math.min(0.3 * intensityMultiplier, 0.6);
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Add new hearts more frequently for denser effect
-      if (hearts.length < 90 && Math.random() < 0.45) {
+      // Add new hearts with intensity-scaled frequency
+      if (hearts.length < maxHearts && Math.random() < heartSpawnRate) {
         hearts.push(new Heart());
       }
 
-      // Add sparkles occasionally
-      if (sparkles.length < 40 && Math.random() < 0.3) {
+      // Add sparkles with intensity-scaled frequency
+      if (sparkles.length < maxSparkles && Math.random() < sparkleSpawnRate) {
         sparkles.push(new Sparkle());
       }
 
@@ -257,7 +280,7 @@ export default function CelebrationOverlay() {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isActive, prefersReducedMotion, isReducedMotion]);
+  }, [isActive, prefersReducedMotion, isReducedMotion, intensity]);
 
   if (!isActive) return null;
 

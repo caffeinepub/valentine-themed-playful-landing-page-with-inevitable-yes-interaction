@@ -1,9 +1,19 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T18:15:38.771Z",
-  "summary": "Diff appears to implement the requested success-copy update, an indefinite looping/escalating \"No\" interaction, and additional cute accents/animations with reduced-motion alternatives. Evidence for the exact success-copy strings is only present in the provided file summary (not visible in the truncated code excerpt), so verification is somewhat constrained.",
-  "missing_requirements": [],
+  "generatedAt": "2026-02-08T18:41:57.418Z",
+  "summary": "REQ-20/REQ-21/REQ-23 appear to be implemented via expanded No-button labels and feedback pools, an intensity-scaled celebration overlay with reduced-motion handling, and new CSS animation keyframes/hooks. REQ-22 (adding the required generated Valentine images under frontend/public/assets/generated and referencing them from the frontend) is not evidenced in the diff because no new image files were added.",
+  "missing_requirements": [
+    {
+      "id": "REQ-22",
+      "requirement": "Add additional Valentine-themed static visual assets (new generated images) stored under `frontend/public/assets/generated` and referenced directly from the frontend via `/assets/generated/...`.",
+      "reason": "The diff shows no added files, so the required new generated images (stickers set, heart garland banner, love note paper texture) are not present under `frontend/public/assets/generated`, and there is no evidence of direct `/assets/generated/...` references to newly added assets.",
+      "evidence": [
+        "File diff summary: \"ADDED FILES: - none\"",
+        "frontend-file-summaries.txt (claims new decorative images, but no corresponding added image assets are shown in the diff)"
+      ]
+    }
+  ],
   "hallucinated_features": [],
   "confidence": 0.72,
   "changed_files": [
@@ -11,7 +21,7 @@
     "frontend/src/components/valentine/CelebrationOverlay.tsx",
     "frontend/src/components/valentine/InevitableNoButton.tsx",
     "frontend/src/components/valentine/ValentineLanding.tsx",
-    "frontend/src/components/valentine/noButtonBehaviors.ts",
+    "frontend/src/components/valentine/useCelebration.ts",
     "frontend/src/index.css",
     "project_state.json"
   ]

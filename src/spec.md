@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Refresh the “Yes” success-state message with the provided love-note copy, keep the “No” choice as an endless teasing loop, and add more cute animations/emotes with reduced-motion support.
+**Goal:** Make the repeated “No” → “Think again” loop feel more varied and playful at high attempt counts, and enhance the Valentine vibe with extra decorative images and lightweight animations, including a bigger “Yes” celebration that scales with prior “No” attempts.
 
 **Planned changes:**
-- Update the post-celebration success card content to exactly: headline “My cute little baby” plus two distinct body paragraphs, with improved romantic love-note typography/layout in English.
-- Ensure the “No” path never ends: allow unlimited “No” attempts while always re-presenting the Yes/No choice, and show an escalating sequence of playful teasing prompts that continues beyond 5+ and very high attempt counts without breaking.
-- Add additional cute visual accents and micro-interactions (e.g., hearts/sparkles, button/heading interactions) in question and success views, while providing reduced-motion-friendly non-motion alternatives.
+- Expand the “Think again”/teasing feedback copy and evolving “No” button labels so they stay fresh and non-repetitive beyond 30+ “No” attempts (English-only).
+- Add an extra celebratory flourish on “Yes” that feels more rewarding, with intensity scaled by the number of prior “No” attempts, and provide reduced-motion-safe alternatives.
+- Add new Valentine-themed decorative static images (stickers/doodles/badges) stored under `frontend/public/assets/generated` and referenced directly via `/assets/generated/...`, placed across epilogue/question/success views without blocking readability or interactions and adapting to dark mode.
+- Add at least 3 additional cute micro-animations/micro-interactions across epilogue/question/success (e.g., subtle bob/twinkle/shimmer) that avoid layout shifts and respect `prefers-reduced-motion`.
 
-**User-visible outcome:** After tapping “Yes!”, users see the updated love-note success card; if they keep tapping “No,” the app continues indefinitely with escalating teasing while still offering “No” and “Yes!” each time, and the UI feels cuter/more animated without harming reduced-motion accessibility.
+**User-visible outcome:** Repeated “No” clicks produce continuously fresh, playful “think again” responses and evolving button labels even after many attempts; clicking “Yes” triggers an extra satisfying celebration that can get bigger the longer the user resisted; the flow includes more Valentine decorations and subtle animations with accessible reduced-motion behavior.

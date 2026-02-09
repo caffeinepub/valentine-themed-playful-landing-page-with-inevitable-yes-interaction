@@ -27,7 +27,38 @@ export type BehaviorFunction = (
   getSafePosition: (width: number, height: number, options?: any) => Position
 ) => BehaviorResult;
 
-// Behavior map: escalating evasive patterns
+// Pre-evasion behaviors: subtle visual feedback without position changes
+export const PRE_EVASION_BEHAVIORS: Record<number, BehaviorFunction> = {
+  0: () => ({}), // No effect on first render
+  
+  1: () => ({
+    transform: 'scale(0.98)',
+    transition: 'all 0.2s ease-out',
+  }),
+  
+  2: () => ({
+    transform: 'scale(0.96)',
+    opacity: 0.95,
+    transition: 'all 0.2s ease-out',
+  }),
+};
+
+// Reduced-motion pre-evasion behaviors
+export const PRE_EVASION_REDUCED_MOTION: Record<number, BehaviorFunction> = {
+  0: () => ({}),
+  
+  1: () => ({
+    opacity: 0.95,
+    transition: 'opacity 0.2s ease-out',
+  }),
+  
+  2: () => ({
+    opacity: 0.9,
+    transition: 'opacity 0.2s ease-out',
+  }),
+};
+
+// Behavior map: escalating evasive patterns (used after threshold)
 export const NO_BUTTON_BEHAVIORS: Record<number, BehaviorFunction> = {
   // 0-1: Simple teleport away
   0: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
@@ -35,84 +66,84 @@ export const NO_BUTTON_BEHAVIORS: Record<number, BehaviorFunction> = {
     transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
   }),
 
-  // 2: Edge hugging - move to nearest edge
-  2: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 1: Edge hugging - move to nearest edge
+  1: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height, { edgeBias: true }),
     transition: 'all 0.4s ease-out',
   }),
 
-  // 3: Shrink and dodge
-  3: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 2: Shrink and dodge
+  2: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     transform: 'scale(0.8)',
     transition: 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
   }),
 
-  // 4: Pointer repulsion - move away from pointer
-  4: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 3: Pointer repulsion - move away from pointer
+  3: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height, { 
       repelFrom: pointerPos 
     }),
     transition: 'all 0.25s ease-out',
   }),
 
-  // 5: Rotation tilt with move
-  5: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 4: Rotation tilt with move
+  4: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     transform: 'rotate(-15deg)',
     transition: 'all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)',
   }),
 
-  // 6: Opacity tease - fade and move
-  6: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 5: Opacity tease - fade and move
+  5: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     opacity: 0.5,
     transition: 'all 0.3s ease-in-out',
   }),
 
-  // 7: Blur escape
-  7: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 6: Blur escape
+  6: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     filter: 'blur(2px)',
     transition: 'all 0.3s ease-out',
   }),
 
-  // 8: Multi-hop - quick double move
-  8: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 7: Multi-hop - quick double move
+  7: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height, { multiHop: 2 }),
     transition: 'all 0.2s ease-in-out',
   }),
 
-  // 9: Grow and flee
-  9: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 8: Grow and flee
+  8: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     transform: 'scale(1.2)',
     transition: 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
   }),
 
-  // 10: Corner escape - move to random corner
-  10: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 9: Corner escape - move to random corner
+  9: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height, { cornerBias: true }),
     transition: 'all 0.5s ease-in-out',
   }),
 
-  // 11: Spin and dodge
-  11: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 10: Spin and dodge
+  10: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     transform: 'rotate(360deg) scale(0.9)',
     transition: 'all 0.4s ease-out',
   }),
 
-  // 12: Fade out and reappear elsewhere
-  12: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 11: Fade out and reappear elsewhere
+  11: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     opacity: 0.3,
     filter: 'blur(1px)',
     transition: 'all 0.25s ease-in-out',
   }),
 
-  // 13: Maximum evasion - combine effects
-  13: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  // 12: Maximum evasion - combine effects
+  12: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height, { 
       repelFrom: pointerPos,
       edgeBias: true 
@@ -167,72 +198,72 @@ export const REDUCED_MOTION_BEHAVIORS: Record<number, BehaviorFunction> = {
     transition: 'all 0.15s ease-out',
   }),
 
-  2: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  1: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     opacity: 0.9,
     transition: 'opacity 0.2s ease-out, left 0.15s ease-out, top 0.15s ease-out',
   }),
 
-  3: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  2: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     opacity: 0.85,
     transition: 'all 0.15s ease-out',
   }),
 
-  4: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  3: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height, { 
       repelFrom: pointerPos 
     }),
     transition: 'all 0.15s ease-out',
   }),
 
-  5: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  4: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     filter: 'brightness(0.9)',
     transition: 'all 0.15s ease-out',
   }),
 
-  6: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  5: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     opacity: 0.8,
     transition: 'all 0.15s ease-out',
   }),
 
-  7: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  6: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     opacity: 0.75,
     transition: 'all 0.15s ease-out',
   }),
 
-  8: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  7: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     transition: 'all 0.1s ease-out',
   }),
 
-  9: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  8: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     filter: 'brightness(1.1)',
     transition: 'all 0.15s ease-out',
   }),
 
-  10: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  9: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height, { cornerBias: true }),
     transition: 'all 0.2s ease-out',
   }),
 
-  11: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  10: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     opacity: 0.7,
     transition: 'all 0.15s ease-out',
   }),
 
-  12: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  11: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height),
     opacity: 0.65,
     transition: 'all 0.15s ease-out',
   }),
 
-  13: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
+  12: (currentPos, pointerPos, bounds, buttonSize, getSafePosition) => ({
     position: getSafePosition(buttonSize.width, buttonSize.height, { 
       repelFrom: pointerPos 
     }),
@@ -260,6 +291,18 @@ const CYCLING_REDUCED_MOTION: BehaviorFunction[] = [
   }),
 ];
 
+export function getPreEvasionBehavior(attempts: number, reducedMotion: boolean): BehaviorFunction {
+  const behaviors = reducedMotion ? PRE_EVASION_REDUCED_MOTION : PRE_EVASION_BEHAVIORS;
+  
+  if (behaviors[attempts]) {
+    return behaviors[attempts];
+  }
+  
+  // Return the last defined pre-evasion behavior
+  const maxAttempt = Math.max(...Object.keys(behaviors).map(Number));
+  return behaviors[maxAttempt];
+}
+
 export function getBehavior(attempts: number, reducedMotion: boolean): BehaviorFunction {
   const behaviors = reducedMotion ? REDUCED_MOTION_BEHAVIORS : NO_BUTTON_BEHAVIORS;
   const cyclingBehaviors = reducedMotion ? CYCLING_REDUCED_MOTION : CYCLING_BEHAVIORS;
@@ -269,13 +312,13 @@ export function getBehavior(attempts: number, reducedMotion: boolean): BehaviorF
     return behaviors[attempts];
   }
   
-  // For attempts beyond 13, cycle through the additional behaviors
-  if (attempts > 13) {
-    const cycleIndex = (attempts - 14) % cyclingBehaviors.length;
+  // For attempts beyond the defined behaviors, cycle through the additional behaviors
+  const maxDefinedAttempt = Math.max(...Object.keys(behaviors).map(Number));
+  if (attempts > maxDefinedAttempt) {
+    const cycleIndex = (attempts - maxDefinedAttempt - 1) % cyclingBehaviors.length;
     return cyclingBehaviors[cycleIndex];
   }
   
   // Fallback to the last defined behavior
-  const maxAttempt = Math.max(...Object.keys(behaviors).map(Number));
-  return behaviors[maxAttempt];
+  return behaviors[maxDefinedAttempt];
 }

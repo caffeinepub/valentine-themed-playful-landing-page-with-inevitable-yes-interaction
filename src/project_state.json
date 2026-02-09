@@ -1,12 +1,15 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 9,
+  "projectStateVersion": 13,
   "summary": "Valentine-themed modern interactive website where the user is led through an epilogue prompt (\"Do you wanna know a secret\") into the main question (\"Will you be my valentine Akriti?\") with Yes/No options where No keeps looping/escalating with teasing prompts until Yes; Yes triggers a customized sweet success message (\"My cute little baby\" + specified body copy) with celebratory animations and cute emotes.",
   "architectural_notes": [
-    "Yes success state copy is explicitly user-defined: header \"My cute little baby\" plus two provided body paragraphs; include cute emotes/design accents and additional animations."
+    "Yes success state copy is explicitly user-defined: header \"My cute little baby\" plus two provided body paragraphs; include cute emotes/design accents and additional animations.",
+    "No-path behavior: always re-present both options (Yes/No) after each No attempt and continue looping/teasing until Yes is chosen; keep the No button centered by default, but if the user repeatedly chooses/attempts No, move the No button around the screen (safe positions) while still showing both options.",
+    "Expand the repeated \"No\"-attempt feedback microcopy (e.g., \"think again\") to be more playful and continue escalating over many attempts."
   ],
   "known_issues": [],
   "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Valentine sticker doodle set (hearts, sparkles, tiny cupid/arrow) (valentine-stickers-set.dim_1024x1024.png)\n- Hand-drawn heart garland banner (valentine-heart-garland.dim_1600x400.png)\n- Romantic paper texture background for love note card (valentine-love-note-paper.dim_1600x1200.png)",
   "existing_features": [
     {
       "id": "feature-create-a-single-page-valentine-themed-modern-landing-experience-that-prominently-asks-the-user-will-you-be-my-valentine-and-presents-two-choices-yes-and-no-with-a-cute-lovely-and-beautiful-overall-aesthetic",
@@ -135,6 +138,62 @@
         "REQ-16"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-no-button-behavior-so-it-starts-visually-centered-in-the-question-view-next-to-the-yes-button-and-remains-centered-for-early-no-attempts-rather-than-immediately-teleporting-away-on-the-first-interactions",
+      "title": "Update the 'No' button behavior so it starts visually centered in the question view (next to the 'Yes' button) and remains centered for early 'No' attempts, rather than immediately teleporting away on the first interactions.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-user-is-always-presented-with-both-options-yes-and-no-after-every-no-attempt-and-that-choosing-no-never-advances-to-a-terminal-state-the-flow-must-continue-indefinitely-until-the-user-chooses-yes",
+      "title": "Ensure the user is always presented with both options ('Yes' and 'No') after every 'No' attempt, and that choosing 'No' never advances to a terminal state; the flow must continue indefinitely until the user chooses 'Yes'.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-change-the-evasive-no-button-movement-so-it-only-begins-after-the-user-repeatedly-attempts-to-choose-no-i-e-after-a-configurable-threshold-of-attempts-and-once-movement-begins-it-may-move-around-the-container-as-attempts-increase-while-keeping-the-ui-responsive-and-non-broken",
+      "title": "Change the evasive 'No' button movement so it only begins after the user repeatedly attempts to choose 'No' (i.e., after a configurable threshold of attempts), and once movement begins it may move around the container as attempts increase while keeping the UI responsive and non-broken.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-extend-and-amplify-the-playful-escalating-think-again-experience-for-repeated-no-attempts-by-adding-many-more-varied-teasing-feedback-lines-beyond-the-current-sets-and-ensuring-the-copy-continues-to-feel-fresh-over-very-high-attempt-counts-while-keeping-all-user-facing-text-in-english",
+      "title": "Extend and amplify the playful, escalating \"Think again\" experience for repeated \"No\" attempts by adding many more varied, teasing feedback lines (beyond the current sets) and ensuring the copy continues to feel fresh over very high attempt counts while keeping all user-facing text in English.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-one-additional-celebratory-flourish-when-the-user-finally-clicks-yes-that-feels-extra-rewarding-e-g-a-brief-final-give-in-beat-with-extra-sparkles-heart-burst-and-scale-the-flourish-intensity-based-on-how-many-no-attempts-occurred-before-yes-while-still-respecting-reduced-motion-preferences",
+      "title": "Add one additional celebratory flourish when the user finally clicks \"Yes\" that feels extra rewarding (e.g., a brief 'final give-in' beat with extra sparkles/heart burst), and scale the flourish intensity based on how many \"No\" attempts occurred before \"Yes\" (while still respecting reduced-motion preferences).",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-additional-valentine-themed-static-visual-assets-new-generated-images-and-render-them-in-the-epilogue-question-and-or-success-views-as-decorative-accents-stickers-doodles-badges-without-routing-images-through-the-backend",
+      "title": "Add additional Valentine-themed static visual assets (new generated images) and render them in the epilogue, question, and/or success views as decorative accents (stickers/doodles/badges), without routing images through the backend.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-increase-overall-playfulness-by-adding-a-few-more-lightweight-ui-animations-micro-interactions-across-the-epilogue-question-and-success-views-e-g-subtle-sticker-bobbing-sparkle-twinkles-gentle-heading-shimmer-while-maintaining-accessibility-and-providing-reduced-motion-safe-alternatives",
+      "title": "Increase overall playfulness by adding a few more lightweight UI animations/micro-interactions across the epilogue, question, and success views (e.g., subtle sticker bobbing, sparkle twinkles, gentle heading shimmer), while maintaining accessibility and providing reduced-motion-safe alternatives.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -183,6 +242,18 @@
     {
       "id": "AR-8",
       "summary": "Update the \"Yes\" success state content to use the exact requested copy: header \"My cute little baby\" and the two provided body paragraphs, and enhance it with necessary cute emotes/design elements.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Extend/continue the \"think again\" style feedback on repeated \"No\" attempts with more playful escalating microcopy (keep looping until Yes).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add more static visual assets (additional images/illustrations) and expand animations throughout the experience to make it feel more lively, while maintaining the cute/romantic Valentine theme.",
       "reqIds": [],
       "status": "pending"
     }

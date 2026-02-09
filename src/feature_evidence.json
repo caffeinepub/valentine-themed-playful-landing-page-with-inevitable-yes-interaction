@@ -2,31 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-yes-success-state-content-the-card-shown-after-the-celebration-overlay-to-use-the-exact-user-provided-copy-including-a-new-header-and-two-body-paragraphs-and-enhance-the-typography-layout-to-feel-like-a-romantic-love-note-while-keeping-all-user-facing-text-in-english",
-      "featureTitle": "Update the 'Yes' success-state content (the card shown after the celebration overlay) to use the exact user-provided copy, including a new header and two body paragraphs, and enhance the typography/layout to feel like a romantic love note while keeping all user-facing text in English.",
-      "files": [
-        "frontend/src/components/valentine/ValentineLanding.tsx",
-        "frontend/src/index.css"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-14"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-the-no-path-is-a-persistent-loop-the-user-can-keep-attempting-to-choose-no-indefinitely-and-is-repeatedly-presented-with-the-option-again-no-is-never-a-terminal-outcome-each-attempt-should-show-an-escalating-sequence-of-teasing-prompts-so-the-user-feels-bombarded-playfully-while-still-keeping-the-app-responsive-and-not-broken",
-      "featureTitle": "Ensure the 'No' path is a persistent loop: the user can keep attempting to choose \"No\" indefinitely and is repeatedly presented with the option again (\"No\" is never a terminal outcome). Each attempt should show an escalating sequence of teasing prompts so the user feels 'bombarded' playfully, while still keeping the app responsive and not broken.",
+      "featureId": "feature-extend-and-amplify-the-playful-escalating-think-again-experience-for-repeated-no-attempts-by-adding-many-more-varied-teasing-feedback-lines-beyond-the-current-sets-and-ensuring-the-copy-continues-to-feel-fresh-over-very-high-attempt-counts-while-keeping-all-user-facing-text-in-english",
+      "featureTitle": "Extend and amplify the playful, escalating \"Think again\" experience for repeated \"No\" attempts by adding many more varied, teasing feedback lines (beyond the current sets) and ensuring the copy continues to feel fresh over very high attempt counts while keeping all user-facing text in English.",
       "files": [
         "frontend/src/components/valentine/InevitableNoButton.tsx",
-        "frontend/src/components/valentine/ValentineLanding.tsx",
-        "frontend/src/components/valentine/noButtonBehaviors.ts"
+        "frontend/src/components/valentine/ValentineLanding.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -36,16 +16,53 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-15"
+        "REQ-20"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-more-animation-and-cute-emotes-design-accents-throughout-the-question-and-success-views-e-g-additional-heart-sparkle-accents-micro-interactions-on-buttons-and-headings-while-respecting-reduced-motion-preferences-by-providing-non-motion-alternatives-subtle-style-changes-static-accents-when-motion-is-reduced",
-      "featureTitle": "Add more animation and cute emotes/design accents throughout the question and success views (e.g., additional heart/sparkle accents, micro-interactions on buttons and headings), while respecting reduced-motion preferences by providing non-motion alternatives (subtle style changes, static accents) when motion is reduced.",
+      "featureId": "feature-add-one-additional-celebratory-flourish-when-the-user-finally-clicks-yes-that-feels-extra-rewarding-e-g-a-brief-final-give-in-beat-with-extra-sparkles-heart-burst-and-scale-the-flourish-intensity-based-on-how-many-no-attempts-occurred-before-yes-while-still-respecting-reduced-motion-preferences",
+      "featureTitle": "Add one additional celebratory flourish when the user finally clicks \"Yes\" that feels extra rewarding (e.g., a brief 'final give-in' beat with extra sparkles/heart burst), and scale the flourish intensity based on how many \"No\" attempts occurred before \"Yes\" (while still respecting reduced-motion preferences).",
       "files": [
         "frontend/src/components/valentine/CelebrationOverlay.tsx",
         "frontend/src/components/valentine/ValentineLanding.tsx",
+        "frontend/src/components/valentine/useCelebration.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-21"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-additional-valentine-themed-static-visual-assets-new-generated-images-and-render-them-in-the-epilogue-question-and-or-success-views-as-decorative-accents-stickers-doodles-badges-without-routing-images-through-the-backend",
+      "featureTitle": "Add additional Valentine-themed static visual assets (new generated images) and render them in the epilogue, question, and/or success views as decorative accents (stickers/doodles/badges), without routing images through the backend.",
+      "files": [
+        "frontend/src/components/valentine/ValentineLanding.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-22"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-increase-overall-playfulness-by-adding-a-few-more-lightweight-ui-animations-micro-interactions-across-the-epilogue-question-and-success-views-e-g-subtle-sticker-bobbing-sparkle-twinkles-gentle-heading-shimmer-while-maintaining-accessibility-and-providing-reduced-motion-safe-alternatives",
+      "featureTitle": "Increase overall playfulness by adding a few more lightweight UI animations/micro-interactions across the epilogue, question, and success views (e.g., subtle sticker bobbing, sparkle twinkles, gentle heading shimmer), while maintaining accessibility and providing reduced-motion-safe alternatives.",
+      "files": [
+        "frontend/src/components/valentine/ValentineLanding.tsx",
         "frontend/src/index.css"
       ],
       "components": [
@@ -56,7 +73,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-16"
+        "REQ-23"
       ],
       "confidence": "high"
     }

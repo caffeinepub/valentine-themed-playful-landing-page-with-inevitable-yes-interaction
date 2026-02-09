@@ -1,56 +1,71 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T18:15:38.774Z",
+  "generatedAt": "2026-02-08T18:41:57.421Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 4,
+    "implemented": 4,
     "items": [
       {
-        "id": "REQ-14",
-        "summary": "Update the 'Yes' success-state content (the card shown after the celebration overlay) to use the exact user-provided copy, including a new header and two body paragraphs, and enhance the typography/layout to feel like a romantic love note while keeping all user-facing text in English.",
+        "id": "REQ-20",
+        "summary": "Extend and amplify the playful, escalating \"Think again\" experience for repeated \"No\" attempts by adding many more varied, teasing feedback lines (beyond the current sets) and ensuring the copy continues to feel fresh over very high attempt counts while keeping all user-facing text in English.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/valentine/ValentineLanding.tsx",
-          "frontend/src/index.css"
+          "frontend/src/components/valentine/InevitableNoButton.tsx"
         ],
         "matchedFiles": [
           "frontend/src/components/valentine/ValentineLanding.tsx",
-          "frontend/src/index.css"
+          "frontend/src/components/valentine/InevitableNoButton.tsx"
         ]
       },
       {
-        "id": "REQ-15",
-        "summary": "Ensure the 'No' path is a persistent loop: the user can keep attempting to choose \"No\" indefinitely and is repeatedly presented with the option again (\"No\" is never a terminal outcome). Each attempt should show an escalating sequence of teasing prompts so the user feels 'bombarded' playfully, while still keeping the app responsive and not broken.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/valentine/ValentineLanding.tsx",
-          "frontend/src/components/valentine/InevitableNoButton.tsx",
-          "frontend/src/components/valentine/noButtonBehaviors.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/valentine/ValentineLanding.tsx",
-          "frontend/src/components/valentine/InevitableNoButton.tsx",
-          "frontend/src/components/valentine/noButtonBehaviors.ts"
-        ]
-      },
-      {
-        "id": "REQ-16",
-        "summary": "Add more animation and cute emotes/design accents throughout the question and success views (e.g., additional heart/sparkle accents, micro-interactions on buttons and headings), while respecting reduced-motion preferences by providing non-motion alternatives (subtle style changes, static accents) when motion is reduced.",
+        "id": "REQ-21",
+        "summary": "Add one additional celebratory flourish when the user finally clicks \"Yes\" that feels extra rewarding (e.g., a brief 'final give-in' beat with extra sparkles/heart burst), and scale the flourish intensity based on how many \"No\" attempts occurred before \"Yes\" (while still respecting reduced-motion preferences).",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/valentine/ValentineLanding.tsx",
           "frontend/src/components/valentine/CelebrationOverlay.tsx",
-          "frontend/src/index.css"
+          "frontend/src/components/valentine/useCelebration.ts"
         ],
         "matchedFiles": [
           "frontend/src/components/valentine/ValentineLanding.tsx",
           "frontend/src/components/valentine/CelebrationOverlay.tsx",
-          "frontend/src/index.css"
+          "frontend/src/components/valentine/useCelebration.ts"
+        ]
+      },
+      {
+        "id": "REQ-22",
+        "summary": "Add additional Valentine-themed static visual assets (new generated images) and render them in the epilogue, question, and/or success views as decorative accents (stickers/doodles/badges), without routing images through the backend.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/valentine-stickers-set.dim_1024x1024.png",
+          "frontend/public/assets/generated/valentine-heart-garland.dim_1600x400.png",
+          "frontend/public/assets/generated/valentine-love-note-paper.dim_1600x1200.png",
+          "frontend/src/components/valentine/ValentineLanding.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/valentine-stickers-set.dim_1024x1024.png",
+          "frontend/public/assets/generated/valentine-heart-garland.dim_1600x400.png",
+          "frontend/public/assets/generated/valentine-love-note-paper.dim_1600x1200.png",
+          "frontend/src/components/valentine/ValentineLanding.tsx"
+        ]
+      },
+      {
+        "id": "REQ-23",
+        "summary": "Increase overall playfulness by adding a few more lightweight UI animations/micro-interactions across the epilogue, question, and success views (e.g., subtle sticker bobbing, sparkle twinkles, gentle heading shimmer), while maintaining accessibility and providing reduced-motion-safe alternatives.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css",
+          "frontend/src/components/valentine/ValentineLanding.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/index.css",
+          "frontend/src/components/valentine/ValentineLanding.tsx"
         ]
       }
     ]
@@ -60,10 +75,13 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/valentine-heart-garland.dim_1600x400.png",
+    "frontend/public/assets/generated/valentine-love-note-paper.dim_1600x1200.png",
+    "frontend/public/assets/generated/valentine-stickers-set.dim_1024x1024.png",
     "frontend/src/components/valentine/CelebrationOverlay.tsx",
     "frontend/src/components/valentine/InevitableNoButton.tsx",
     "frontend/src/components/valentine/ValentineLanding.tsx",
-    "frontend/src/components/valentine/noButtonBehaviors.ts",
+    "frontend/src/components/valentine/useCelebration.ts",
     "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",

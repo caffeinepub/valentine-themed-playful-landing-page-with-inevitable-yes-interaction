@@ -1,80 +1,112 @@
 {
   "kind": "build_request",
-  "title": "Update success-state copy and ensure persistent 'No' loop with more teasing animations/emotes",
+  "title": "Make the 'Think again' loop more playful and add more Valentine images + animations",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-14",
-      "text": "Update the 'Yes' success-state content (the card shown after the celebration overlay) to use the exact user-provided copy, including a new header and two body paragraphs, and enhance the typography/layout to feel like a romantic love note while keeping all user-facing text in English.",
+      "id": "REQ-20",
+      "text": "Extend and amplify the playful, escalating \"Think again\" experience for repeated \"No\" attempts by adding many more varied, teasing feedback lines (beyond the current sets) and ensuring the copy continues to feel fresh over very high attempt counts while keeping all user-facing text in English.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-2"
         ],
         "quotes": [
-          "I'd like to edit it a little \"My cute little baby\" as header and then in the body say \"You mean so much to me and  you are really adorable!\" and in the second body say \"I can't wait to make every moment for us special and even better and I really am looking forward for you and me as life long partners. Every moment with you is gonna be like the treasure , and I'm grateful that you really look forward too! Cheers to our love~ \""
+          "sure add it , can you continue the \"think again\" and be more playful"
         ]
       },
       "acceptanceCriteria": [
-        "After selecting \"Yes!\", the success card headline text is exactly: \"My cute little baby\".",
-        "The success card displays body paragraph 1 exactly: \"You mean so much to me and  you are really adorable!\".",
-        "The success card displays body paragraph 2 exactly: \"I can't wait to make every moment for us special and even better and I really am looking forward for you and me as life long partners. Every moment with you is gonna be like the treasure , and I'm grateful that you really look forward too! Cheers to our love~ \".",
-        "All newly displayed text remains in English.",
-        "Line breaks/spacing make the two paragraphs clearly distinct and readable on mobile and desktop."
+        "After 30+ \"No\" attempts, the feedback text under the question continues to change and remain playful (no short repetitive loop).",
+        "The \"No\" button label continues to evolve beyond the current label arrays and includes additional \"think again\"-style variants.",
+        "All new user-facing strings are in English."
       ]
     },
     {
-      "id": "REQ-15",
-      "text": "Ensure the 'No' path is a persistent loop: the user can keep attempting to choose \"No\" indefinitely and is repeatedly presented with the option again (\"No\" is never a terminal outcome). Each attempt should show an escalating sequence of teasing prompts so the user feels 'bombarded' playfully, while still keeping the app responsive and not broken.",
+      "id": "REQ-21",
+      "text": "Add one additional celebratory flourish when the user finally clicks \"Yes\" that feels extra rewarding (e.g., a brief 'final give-in' beat with extra sparkles/heart burst), and scale the flourish intensity based on how many \"No\" attempts occurred before \"Yes\" (while still respecting reduced-motion preferences).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1",
+          "msg-2"
         ],
         "quotes": [
-          "add the loop where if the user gets to keep choosing \"no\" until they say yes",
-          "remember to add the loop where the user gets bombarded with different teasing's if they say \"no\". Keep giving them the no option if they choose no once please remember!"
+          "want to try adding one fun flourish to the moment they finally give in and say yes?",
+          "sure add it"
         ]
       },
       "acceptanceCriteria": [
-        "There is no UI state in which choosing/attempting \"No\" ends the flow or removes the Yes/No choice permanently.",
-        "The feedback/teasing message area continues to update for attempts beyond 5 (including very high attempt counts) without crashing, freezing, or showing empty text.",
-        "The \"No\" option remains visible/available after every failed/evaded attempt, and the user can continue interacting until they select \"Yes!\"."
+        "Clicking \"Yes\" triggers a noticeably enhanced celebratory moment compared to the current baseline.",
+        "If the user clicked \"No\" many times before clicking \"Yes\", the celebration feels 'bigger' (e.g., denser particles/longer duration/extra overlay beat), without breaking performance.",
+        "When `prefers-reduced-motion` is enabled, the flourish uses a non-motion or minimal-motion alternative (e.g., static burst/quick fade)."
       ]
     },
     {
-      "id": "REQ-16",
-      "text": "Add more animation and cute emotes/design accents throughout the question and success views (e.g., additional heart/sparkle accents, micro-interactions on buttons and headings), while respecting reduced-motion preferences by providing non-motion alternatives (subtle style changes, static accents) when motion is reduced.",
+      "id": "REQ-22",
+      "text": "Add additional Valentine-themed static visual assets (new generated images) and render them in the epilogue, question, and/or success views as decorative accents (stickers/doodles/badges), without routing images through the backend.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-2"
         ],
         "quotes": [
-          "add necessary emotes and designs required",
-          "Add more animation and emotes"
+          "also add more images"
         ]
       },
       "acceptanceCriteria": [
-        "In normal motion mode, the question and/or success view includes additional lively but non-distracting animations beyond the current baseline (e.g., enhanced sparkle/heart accents or micro-interactions).",
-        "In reduced-motion mode, the experience remains visually cute and expressive without relying on fast/large motion; animations are minimized/removed per existing reduced-motion behavior.",
-        "Any added emotes are represented as emojis or existing iconography (no broken/missing assets), and the UI remains accessible and readable."
+        "New images are added under `frontend/public/assets/generated` and are referenced directly from the frontend via `/assets/generated/...`.",
+        "The added images are purely decorative and do not obstruct button interactions or readability on common viewport sizes.",
+        "Decorative images adapt gracefully to dark mode (e.g., via opacity/blend/filters) and do not create harsh contrast."
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Increase overall playfulness by adding a few more lightweight UI animations/micro-interactions across the epilogue, question, and success views (e.g., subtle sticker bobbing, sparkle twinkles, gentle heading shimmer), while maintaining accessibility and providing reduced-motion-safe alternatives.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "and animations if you can"
+        ]
+      },
+      "acceptanceCriteria": [
+        "At least 3 new micro-interactions/animations are visible across the flow (epilogue/question/success), consistent with the existing cute romantic aesthetic.",
+        "All added animations are disabled or converted to non-motion alternatives when `prefers-reduced-motion` is enabled.",
+        "No new animation causes layout shift that moves the buttons unexpectedly (except the intentional \"No\" evasion logic)."
       ]
     }
   ],
   "constraints": [
-    "Use English for all user-facing text.",
-    "Do not edit files under frontend/src/components/ui (read-only); compose existing UI components instead.",
-    "Respect prefers-reduced-motion behavior: provide non-motion alternatives when reduced motion is enabled.",
-    "Backend must remain single-actor Motoko; no backend changes are required for this request."
+    "Do not edit files under `frontend/src/components/ui` (compose them instead).",
+    "Do not modify any frontend files listed in `frontend.immutablePaths` in SYSTEM_CONTEXT.",
+    "Store any newly generated images under `frontend/public/assets/generated` and load them directly from the frontend.",
+    "Keep all user-facing text in English.",
+    "Respect `prefers-reduced-motion` across any new motion/animation behavior."
   ],
   "nonGoals": [
-    "Adding new backend persistence, profiles, or databases for tracking attempts.",
-    "Adding third-party integrations (analytics, chat, auth providers beyond Internet Identity).",
-    "Introducing new routes/pages beyond the existing single-page flow unless required to satisfy the above requirements."
+    "Adding backend persistence, accounts, or analytics for attempts.",
+    "Changing authentication (Internet Identity) behavior or adding third-party auth providers.",
+    "Introducing routing/multi-page navigation; keep the experience single-page.",
+    "Adding real-time or server-driven features."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Valentine sticker doodle set (hearts, sparkles, tiny cupid/arrow) (valentine-stickers-set.dim_1024x1024.png)",
+      "Hand-drawn heart garland banner (valentine-heart-garland.dim_1600x400.png)",
+      "Romantic paper texture background for love note card (valentine-love-note-paper.dim_1600x1200.png)"
+    ],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }
